@@ -8,7 +8,6 @@ class TodoBloc extends Bloc<TodoBlocEvent , TodoBlocState>{
   List<Task> list = [];
   final TodoRepository todoRepository;
   TodoBloc(this.todoRepository): super(TodoInitialState()){
-    on<TodoBlocEvent>((event, emit) => emit(TodoLoadingState()),);
     on<AddTaskEvent>((event, emit) async{
       final responce =await todoRepository.addTask(event.task);
       responce.fold((l) => emit(TodoFailure(message: l.message)), (r) => TodoAddSuccess(),);
